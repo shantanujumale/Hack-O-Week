@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Polling & Voting Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="glow-container">
+    <div class="glow-circle glow-1"></div>
+    <div class="glow-circle glow-2"></div>
+  </div>
+
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <span class="icon">📊</span>
+        <h1>Antigravity Polls</h1>
+      </div>
+      <p class="tagline">Real-time room-based WebSocket voting engine</p>
+    </header>
+
+    <main class="app-grid">
+      <!-- Left Column: Create & Manage Polls -->
+      <section class="left-panel">
+        <div class="glass-card creator-card">
+          <h2>Create New Poll</h2>
+          <form id="create-poll-form">
+            <div class="input-group">
+              <label for="poll-question">Question</label>
+              <input type="text" id="poll-question" placeholder="What is your favorite coding language?" required>
+            </div>
+            
+            <div class="input-group">
+              <label>Options (At least 2)</label>
+              <div id="options-inputs-container">
+                <div class="option-input-row">
+                  <input type="text" class="option-input" placeholder="Option 1" required>
+                </div>
+                <div class="option-input-row">
+                  <input type="text" class="option-input" placeholder="Option 2" required>
+                </div>
+              </div>
+              <button type="button" id="add-option-btn" class="btn-secondary">+ Add Option</button>
+            </div>
+
+            <div class="input-group">
+              <label for="poll-expiration">Expires At (Optional)</label>
+              <input type="datetime-local" id="poll-expiration">
+            </div>
+
+            <button type="submit" class="btn-primary">Launch Poll 🚀</button>
+          </form>
+        </div>
+
+        <div class="glass-card list-card">
+          <h2>Active & Recent Polls</h2>
+          <div id="polls-list" class="polls-list">
+            <div class="loading-spinner">Loading polls...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Live Poll View & Results -->
+      <section class="right-panel">
+        <div id="active-poll-card" class="glass-card active-poll-card hidden">
+          <div class="poll-header" style="gap: 1rem;">
+            <a href="/" id="back-to-dashboard-btn" class="back-link hidden">← Dashboard</a>
+            <span id="poll-status-badge" class="badge active-badge">Active</span>
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: auto;">
+              <span id="poll-id-display" class="poll-id">ID: </span>
+              <button id="copy-link-btn" class="btn-secondary" style="margin-top: 0; padding: 0.25rem 0.5rem; font-size: 0.75rem;">Copy Link 🔗</button>
+            </div>
+          </div>
+
+          <h2 id="active-question" class="active-question">Select a poll to view and vote</h2>
+          <p id="poll-expiration-display" class="expiration-text"></p>
+
+          <div class="poll-body-grid">
+            <!-- Voting Form -->
+            <div class="voting-section">
+              <h3>Cast Your Vote</h3>
+              <div id="voting-options-container" class="voting-options">
+                <!-- Options buttons injected here -->
+              </div>
+            </div>
+
+            <!-- Real-Time Results -->
+            <div class="results-section">
+              <div class="results-header">
+                <h3>Live Results</h3>
+                <span id="total-votes-count" class="total-votes">0 votes</span>
+              </div>
+              <div id="results-bars-container" class="results-bars">
+                <!-- Results bars injected here -->
+              </div>
+            </div>
+          </div>
+
+          <div class="simulation-section">
+            <h3>Race Condition & Duplication Testing Suite</h3>
+            <p class="sim-desc">
+              Demonstrate backend safety using concurrent requests and database constraints.
+            </p>
+            <div class="sim-buttons">
+              <button id="sim-race-condition" class="btn-sim accent-purple">
+                ⚡ Simulate 100 Concurrent Votes (Atomic DB)
+              </button>
+              <button id="sim-duplicate-check" class="btn-sim accent-red">
+                🛡️ Test DB Duplicate Vote Constraint
+              </button>
+            </div>
+            <div id="sim-log" class="sim-log hidden">
+              <h4>Simulation Terminal Output:</h4>
+              <pre id="sim-log-text"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div id="no-poll-selected" class="glass-card no-selection-card">
+          <div class="empty-state">
+            <span class="empty-icon">📊</span>
+            <h2>No Poll Selected</h2>
+            <p>Choose an existing poll from the list or launch a new one to see live WebSocket results!</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Powered by Node.js, native <code>node:sqlite</code> database transactions, and custom WebSockets.</p>
+    </footer>
+  </div>
+  <script src="client.js"></script>
+</body>
+</html>
