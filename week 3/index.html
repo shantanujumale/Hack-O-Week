@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugarcane Yield Predictor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-decorations">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-emoji">🌱</span>
+                <div class="logo-text">
+                    <h1>Week 5-6</h1>
+                    <p>Machine Learning Agricultural Intelligence</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                    <!-- Sun Icon (Dark mode active, click for light) -->
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <!-- Moon Icon (Light mode active, click for dark) -->
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                </button>
+                <button id="math-info-btn" class="btn btn-secondary">
+                    <span class="btn-icon">∑</span> Math Details
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <div class="dashboard-grid">
+            <!-- INPUT SECTION -->
+            <section class="card form-card">
+                <div class="card-header">
+                    <div class="header-title-group">
+                        <span class="card-icon">🌾</span>
+                        <h2>Farm Parameters</h2>
+                    </div>
+                    <p class="card-subtitle">Adjust agricultural and environmental factors to predict sugarcane yield.</p>
+                </div>
+
+                <form id="prediction-form" novalidate>
+                    <div class="form-grid">
+                        <!-- Soil Type -->
+                        <div class="input-group full-width">
+                            <label for="soil_type">Soil Composition Type</label>
+                            <div class="select-wrapper">
+                                <select id="soil_type" name="soil_type" required>
+                                    <option value="" disabled>Select Soil Type</option>
+                                    <option value="Clayey">Clayey Soil (High water retention, nutrient-rich)</option>
+                                    <option value="Loamy" selected>Loamy Soil (Ideal balance, highly aerated)</option>
+                                    <option value="Sandy">Sandy Soil (Free draining, lower nutrients)</option>
+                                </select>
+                                <div class="select-arrow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Rainfall -->
+                        <div class="input-group">
+                            <label for="rainfall">
+                                Rainfall
+                                <span class="help-trigger" title="Average yearly rainfall in millimeters. Sugarcane requires consistent watering.">?</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="input-addon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path><path d="M8 12v8M12 10v12M16 12v6"></path></svg>
+                                </span>
+                                <input type="number" id="rainfall" name="rainfall" min="0" max="5000" value="2200" step="50" required>
+                                <span class="input-unit">mm</span>
+                            </div>
+                            <span class="error-msg">Please enter a value between 0 and 5000 mm.</span>
+                        </div>
+
+                        <!-- Irrigation -->
+                        <div class="input-group">
+                            <label for="irrigation">
+                                Supplemental Irrigation
+                                <span class="help-trigger" title="Artificial watering applied to crop in liters per hectare.">?</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="input-addon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-11-7-11S5 10.7 5 15a7 7 0 0 0 7 7z"></path></svg>
+                                </span>
+                                <input type="number" id="irrigation" name="irrigation" min="0" max="10000" value="2100" step="50" required>
+                                <span class="input-unit">L/ha</span>
+                            </div>
+                            <span class="error-msg">Please enter a value between 0 and 10000 L/ha.</span>
+                        </div>
+
+                        <!-- Fertilizer -->
+                        <div class="input-group">
+                            <label for="fertilizer">
+                                Fertilizer Input
+                                <span class="help-trigger" title="Amount of NPK/organic nutrients added in kilograms per hectare.">?</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="input-addon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                </span>
+                                <input type="number" id="fertilizer" name="fertilizer" min="0" max="1000" value="130" step="5" required>
+                                <span class="input-unit">kg/ha</span>
+                            </div>
+                            <span class="error-msg">Please enter a value between 0 and 1000 kg/ha.</span>
+                        </div>
+
+                        <!-- Temperature -->
+                        <div class="input-group">
+                            <label for="temperature">
+                                Average Temperature
+                                <span class="help-trigger" title="Mean growing season temperature in degrees Celsius. Optimum is 25-35°C.">?</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="input-addon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+                                </span>
+                                <input type="number" id="temperature" name="temperature" min="0" max="60" value="28" step="0.5" required>
+                                <span class="input-unit">°C</span>
+                            </div>
+                            <span class="error-msg">Please enter a value between 0 and 60 °C.</span>
+                        </div>
+
+                        <!-- Water Usage -->
+                        <div class="input-group full-width">
+                            <label for="water_usage">
+                                Total Water Usage
+                                <span class="help-trigger" title="Combined natural and artificial water absorbed by the sugarcane system in liters per hectare.">?</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="input-addon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"></path></svg>
+                                </span>
+                                <input type="number" id="water_usage" name="water_usage" min="0" max="10000" value="2150" step="50" required>
+                                <span class="input-unit">L/ha</span>
+                            </div>
+                            <span class="error-msg">Please enter a value between 0 and 10000 L/ha.</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="predict-btn" class="btn btn-primary btn-block">
+                        <span class="btn-text">Predict Sugarcane Yield</span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- RESULTS SECTION -->
+            <section class="card results-card" id="results-panel">
+                <div class="results-empty" id="results-empty-state">
+                    <div class="empty-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                            <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                        </svg>
+                    </div>
+                    <h3>Ready for Prediction</h3>
+                    <p>Configure the parameters and click "Predict Sugarcane Yield" to run the regression model.</p>
+                </div>
+
+                <div class="results-content hidden" id="results-content-state">
+                    <div class="card-header centered">
+                        <h2>Prediction Result</h2>
+                        <p class="card-subtitle">Expected harvest density based on regression weights.</p>
+                    </div>
+
+                    <div class="yield-display">
+                        <div class="gauge-container">
+                            <svg class="gauge-ring" viewBox="0 0 120 120">
+                                <circle class="gauge-bg" cx="60" cy="60" r="50"></circle>
+                                <circle class="gauge-fill" id="gauge-fill-ring" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"></circle>
+                            </svg>
+                            <div class="gauge-center">
+                                <span class="yield-number" id="yield-value">0.00</span>
+                                <span class="yield-unit">tons/ha</span>
+                            </div>
+                        </div>
+                        <div class="yield-label-badge" id="yield-rating">Optimal Yield</div>
+                    </div>
+
+                    <div class="insights-container">
+                        <h3>💡 Smart Agricultural Insights</h3>
+                        <div class="insights-list" id="insights-list">
+                            <!-- Injected by script.js -->
+                        </div>
+                    </div>
+
+                    <div class="input-summary-table-wrapper">
+                        <h3>Input Summary</h3>
+                        <table class="summary-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="summary-table-body">
+                                <!-- Injected by script.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- MATH DRAWER / OVERLAY -->
+    <div class="math-overlay" id="math-overlay">
+        <div class="math-modal">
+            <div class="math-modal-header">
+                <h2>📈 Regression Mathematics</h2>
+                <button id="close-math-btn" class="close-btn" aria-label="Close Modal">&times;</button>
+            </div>
+            <div class="math-modal-body">
+                <p>This application executes predictions client-side using parameters extracted from the trained <strong>Linear Regression</strong> model with <strong>StandardScaler</strong> normalization.</p>
+
+                <div class="math-block">
+                    <h3>1. Feature Scaling (Standardization)</h3>
+                    <p>Before making a prediction, the input features are standardized to have zero mean and unit variance using the parameters computed during training:</p>
+                    <div class="equation">
+                        \[ z_i = \frac{x_i - \mu_i}{\sigma_i} \]
+                    </div>
+                    <p>Where \(x_i\) is the raw input feature, \(\mu_i\) is the feature mean, and \(\sigma_i\) is the standard deviation scale.</p>
+                </div>
+
+                <div class="math-block">
+                    <h3>2. Prediction Equation</h3>
+                    <p>The yield prediction \(\hat{y}\) is the dot product of the standardized feature vector \(\mathbf{z}\) and the regression coefficients weight vector \(\mathbf{w}\), shifted by the intercept \(b\):</p>
+                    <div class="equation">
+                        \[ \hat{y} = b + \sum_{i=1}^{n} w_i z_i \]
+                    </div>
+                    <p>This is equivalent to the matrix multiplication: \(\hat{y} = \mathbf{w}^T \mathbf{z} + b\).</p>
+                </div>
+
+                <div class="math-block">
+                    <h3>3. Model Weights & Scaler Constants</h3>
+                    <div class="table-scroll">
+                        <table class="math-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature Name</th>
+                                    <th>Mean (\(\mu_i\))</th>
+                                    <th>Scale (\(\sigma_i\))</th>
+                                    <th>Weight coefficient (\(w_i\))</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Rainfall (mm)</td>
+                                    <td>762.50</td>
+                                    <td>165.36</td>
+                                    <td class="positive">+3.4567</td>
+                                </tr>
+                                <tr>
+                                    <td>Irrigation (L/ha)</td>
+                                    <td>1375.00</td>
+                                    <td>338.19</td>
+                                    <td class="negative">-1.9266</td>
+                                </tr>
+                                <tr>
+                                    <td>Fertilizer (kg/ha)</td>
+                                    <td>242.50</td>
+                                    <td>41.16</td>
+                                    <td class="positive">+1.7418</td>
+                                </tr>
+                                <tr>
+                                    <td>Temperature (°C)</td>
+                                    <td>29.13</td>
+                                    <td>2.09</td>
+                                    <td class="negative">-0.3480</td>
+                                </tr>
+                                <tr>
+                                    <td>Water Usage (L/ha)</td>
+                                    <td>2137.50</td>
+                                    <td>176.33</td>
+                                    <td class="negative">-0.4534</td>
+                                </tr>
+                                <tr>
+                                    <td>Soil Type - Clayey</td>
+                                    <td>0.25</td>
+                                    <td>0.43</td>
+                                    <td class="positive">+0.6191</td>
+                                </tr>
+                                <tr>
+                                    <td>Soil Type - Loamy</td>
+                                    <td>0.50</td>
+                                    <td>0.50</td>
+                                    <td class="negative">-0.2336</td>
+                                </tr>
+                                <tr>
+                                    <td>Soil Type - Sandy</td>
+                                    <td>0.25</td>
+                                    <td>0.43</td>
+                                    <td class="negative">-0.3495</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="intercept-label">Model Intercept (\(b\)) = <strong>69.00 tons/ha</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Math rendering helper using KaTeX for crisp formula representation -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
