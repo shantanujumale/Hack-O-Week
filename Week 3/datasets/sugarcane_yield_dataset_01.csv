@@ -1,0 +1,11 @@
+Plot_ID,Soil_Type,Rainfall_mm,Irrigation_liters_ha,Fertilizer_kg_ha,Temperature_C,Water_Usage_liters_ha,Yield_tons_ha
+P1,Loamy,850,1200,250,28,2050,72
+P2,Sandy,600,1800,200,32,2400,58
+P3,Clayey,950,1000,300,27,1950,80
+P4,Loamy,700,1500,220,30,2200,65
+P5,Sandy,500,2000,180,33,2500,55
+P6,Clayey,1000,900,310,26,1900,82
+P7,Loamy,800,1300,240,29,2100,70
+P8,Sandy,550,1700,210,31,2250,60
+P9,Clayey,970,950,290,27,1920,78
+P10,Loamy,750,1400,230,29,2150,68
